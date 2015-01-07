@@ -70,8 +70,7 @@ namespace Shape
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            double t = 10;
-            double bhuttz = 11;
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
