@@ -71,6 +71,7 @@ namespace Shape
                 Exit();
 
             double t = 10;
+            double bhuttz = 11;
             // TODO: Add your update logic here
 
             base.Update(gameTime);
