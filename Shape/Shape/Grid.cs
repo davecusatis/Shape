@@ -81,7 +81,7 @@ namespace Shape
         }
         public void Draw(GraphicsContext context)
         {
-            
+            context.SetCurrentBuffer(context.AddBuffer());
             foreach (var shapeBlock in Shapes)
             {
                 shapeBlock.Draw(context);
