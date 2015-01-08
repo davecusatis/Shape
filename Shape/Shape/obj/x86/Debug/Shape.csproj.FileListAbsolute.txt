@@ -48,3 +48,7 @@ C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.Direc
 C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.XInput.xml
 C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\Content\BlockMove.wav
+C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\Content\BlockStop.wav
+C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\Content\shadow.png
+C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\Content\strawberry.png

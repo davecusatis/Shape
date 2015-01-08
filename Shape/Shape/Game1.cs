@@ -16,14 +16,16 @@ namespace Shape
     /// </summary>
     public class Game1 : Game
     {
-        public static float BLOCK_SPEED = 5.0f;
+        public static float BLOCK_SPEED = 50.0f;
         public static float PLAYER_FALL_SPEED = 100.0f;
         public static float PLAYER_SPEED = 5.0f;
         public static float TIMESTEP = 1.0f / 60.0f;
+        public static float PLAYER_SCALE = 0.005f;
+        public static Vector3 CAMERA_OFFSET = new Vector3(0, 20, -30);
 
         GraphicsContext context;
         GraphicsDeviceManager graphics;
-    
+        Vector3 camera;
         Player guy;
         Grid map;
         bool isDying;
@@ -38,7 +40,7 @@ namespace Shape
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             
-
+           
             // full screen code
             var screen = System.Windows.Forms.Screen.AllScreens[0];
             Window.IsBorderless = true;
@@ -47,11 +49,13 @@ namespace Shape
             graphics.PreferredBackBufferWidth = screen.Bounds.Width;
             graphics.PreferredBackBufferHeight = screen.Bounds.Height;
             float AspectRatio = (float) screen.Bounds.Width / (float) screen.Bounds.Height;
+            
 
 
             // camera code
             World = Matrix.CreateTranslation(0, 0, 0);
-            View = Matrix.CreateLookAt(new Vector3(0, 20, -30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            camera = new Vector3(0, 0, 0);
+            View = Matrix.CreateLookAt(camera, new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), AspectRatio, 0.01f, 100f);
 
             Content.RootDirectory = "Content";
@@ -70,7 +74,6 @@ namespace Shape
             guy = new Player();
             map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
-            context.SetCamera(World, View, Projection);
             base.Initialize();
         }
 
@@ -80,7 +83,8 @@ namespace Shape
         /// </summary>
         protected override void LoadContent()
         {
-           
+            guy.image = Content.Load<Texture2D>("strawberry");
+            guy.shadow = Content.Load<Texture2D>("shadow");
             map.AddShape(new Grid.RedBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
         }
 
@@ -105,7 +109,7 @@ namespace Shape
                 Exit();
 
             groundingShape = null;
-            if (map.IsGrounded(guy.Position, ref groundingShape) || isDying)
+            if (map.IsGrounded(guy.Position, ref groundingShape) && !isDying)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
@@ -138,7 +142,7 @@ namespace Shape
             }
             else
             {
-                //isDying = true;
+                isDying = true;
                 guy.FloorVelocity = new Vector3(0, 0, 0);
                 guy.Velocity.X = 0;
                 guy.Velocity.Z = 0;
@@ -146,7 +150,9 @@ namespace Shape
              
             }
 
-     
+
+            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
+
             // TODO: Add your update logic here
 
             map.Update(TIMESTEP);
@@ -162,24 +168,8 @@ namespace Shape
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
 
-            //basicEffect.World = World;
-            //basicEffect.View = View;
-            //basicEffect.Projection = Projection;
-            //basicEffect.VertexColorEnabled = true;
-
-            //GraphicsDevice.SetVertexBuffer(vertexBuffer);
-
-            //RasterizerState rasterizerState = new RasterizerState();
-            //rasterizerState.CullMode = CullMode.None;
-            //GraphicsDevice.RasterizerState = rasterizerState;
-
-            //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            //{
-            //    pass.Apply();
-            //    GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
-            //}
+            context.AddSprite(guy.image, guy.Position + new Vector3(0, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE, false);
 
             map.Draw(context);
             context.Draw();

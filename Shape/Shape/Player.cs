@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Shape
 {
@@ -24,6 +25,8 @@ namespace Shape
 
         }
 
+        public Texture2D image;
+        public Texture2D shadow;
         public Vector3 Position;
         public Vector3 Velocity;
         public Vector3 Acceleration;
