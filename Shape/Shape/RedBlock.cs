@@ -15,7 +15,7 @@ namespace Shape
             private static Color COLOR_RIGHT = new Color(0.5f, 0, 0);
             private static Color COLOR_FRONT = new Color(0.75f, 0, 0);
 
-            public List<Vector2> OccupiedSquares()
+            public override List<Vector2> OccupiedSquares()
             {
                 int x;
                 int z;
@@ -30,7 +30,7 @@ namespace Shape
                 }
                 return ret;
             }
-            public void Update(float t)
+            public override void Update(float t)
             {
                 Velocity += Acceleration * t;
                 Position += Velocity * t;
@@ -42,12 +42,12 @@ namespace Shape
                     ShapeState = State.Stopped;
                 }
             }
-            public void Move(float speed)
+            public override void Move(float speed)
             {
                 Acceleration = new Vector3(speed, 0, 0);
                 ShapeState = State.Moving;
             }
-            public void Draw()
+            public override void Draw(GraphicsContext context)
             {
                 //
             }

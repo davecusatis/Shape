@@ -8,7 +8,7 @@ namespace Shape
 {
     public partial class Grid
     {
-        public class Shape
+        public abstract class Shape
         {
             public Shape()
             {
@@ -23,36 +23,15 @@ namespace Shape
             {
                 Moving, Stopped
             }
-            public Vector3 Position
-            {
-                public set
-                { 
-                    Position = value;
-                    Stop();
-                }
-                protected get;
-            }
-            public Vector3 Size
-            {
-                public get;
-                protected set;
-            }
-            public Vector3 Velocity
-            {
-                public get;
-                protected set;
-            }
+            public Vector3 Position;
+            public Vector3 Size;
+            public Vector3 Velocity;
             protected Vector3 Acceleration;
-            public State ShapeState
-            {
-                public get;
-                protected set;
-            }
-
-            public List<Vector2> OccupiedSquares();
-            public void Move(float speed) { }
-            public void Update(float t) { }
-            public void Draw(GraphicsContext context);
+            public State ShapeState;
+            public abstract List<Vector2> OccupiedSquares();
+            public abstract void Move(float speed);
+            public abstract void Update(float t);
+            public abstract void Draw(GraphicsContext context);
             public bool OccupiesSquare(Vector2 checkSquare)
             {
                 List<Vector2> curSquares;

@@ -68,6 +68,8 @@ namespace Shape
         {
             // TODO: Add your initialization logic here
             isDying = false;
+            guy = new Player();
+            map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
             base.Initialize();
         }

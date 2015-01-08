@@ -10,12 +10,12 @@ namespace Shape
     {
         public class GreyBlock : Shape
         {
-            private const Color COLOR_TOP = new Color(1, 1, 1);
-            private const Color COLOR_LEFT = new Color(0.5f, 0.5f, 0.5f);
-            private const Color COLOR_RIGHT = new Color(0.5f, 0.5f, 0.5f);
-            private const Color COLOR_FRONT = new Color(0.75f, 0.75f, 0.75f);
+            private static Color COLOR_TOP = new Color(1, 1, 1);
+            private static Color COLOR_LEFT = new Color(0.5f, 0.5f, 0.5f);
+            private static Color COLOR_RIGHT = new Color(0.5f, 0.5f, 0.5f);
+            private static Color COLOR_FRONT = new Color(0.75f, 0.75f, 0.75f);
 
-            public List<Vector2> OccupiedSquares()
+            public override List<Vector2> OccupiedSquares()
             {
                 int x;
                 int z;
@@ -30,8 +30,17 @@ namespace Shape
                 }
                 return ret;
             }
-            
-            public void Draw()
+
+            public override void Move(float speed)
+            {
+                throw new NotImplementedException();
+            }
+            public override void Update(float t)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void Draw(GraphicsContext context)
             {
                 //
             }

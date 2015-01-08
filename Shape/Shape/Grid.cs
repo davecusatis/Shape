@@ -10,6 +10,11 @@ namespace Shape
     {
         private List<Shape> Shapes;
 
+        public Grid()
+        {
+            Shapes = new List<Shape>();
+        }
+
         public void Update(float t)
         {
             Vector3 initialPos;
