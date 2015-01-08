@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+using IrrKlang;
 #endregion
 
 namespace Shape
@@ -29,7 +32,10 @@ namespace Shape
         Player guy;
         Grid map;
         bool isDying;
-
+        string BlockMove;
+        string BlockStop;
+        string Footsteps;
+        ISoundEngine SoundEngine;
         Matrix World;
         Matrix View;
         Matrix Projection;
@@ -40,7 +46,7 @@ namespace Shape
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             
-           
+
             // full screen code
             var screen = System.Windows.Forms.Screen.AllScreens[0];
             Window.IsBorderless = true;
@@ -49,7 +55,7 @@ namespace Shape
             graphics.PreferredBackBufferWidth = screen.Bounds.Width;
             graphics.PreferredBackBufferHeight = screen.Bounds.Height;
             float AspectRatio = (float) screen.Bounds.Width / (float) screen.Bounds.Height;
-            
+
 
 
             // camera code
@@ -74,6 +80,7 @@ namespace Shape
             guy = new Player();
             map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
+\            SoundEngine = new ISoundEngine();
             base.Initialize();
         }
 
@@ -85,7 +92,11 @@ namespace Shape
         {
             guy.image = Content.Load<Texture2D>("strawberry");
             guy.shadow = Content.Load<Texture2D>("shadow");
-            map.AddShape(new Grid.RedBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
+            map.AddShape(new Grid.GreenBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 50)));
+
+            BlockMove = Content.RootDirectory + "\\blockmove.wav";
+            BlockStop = Content.RootDirectory + "\\blockstop.wav";
+            Footsteps = Content.RootDirectory + "\\footsteps.wav";
         }
 
         /// <summary>
@@ -119,6 +130,11 @@ namespace Shape
                 {
                     groundingShape.Move(-BLOCK_SPEED);
                 }
+
+                if(groundingShape.Velocity != Vector3.Zero)
+                {
+                    SoundEngine.Play2D(BlockMove, false);
+                }
                 guy.FloorVelocity = groundingShape.Velocity;
                 guy.Velocity = new Vector3(0, 0, 0);
 
@@ -150,6 +166,10 @@ namespace Shape
              
             }
 
+            if(guy.Velocity != Vector3.Zero)
+            {
+                SoundEngine.Play2D(Footsteps, false);
+            }
 
             context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
 

@@ -47,6 +47,9 @@
     <Compile Include="Shape.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="irrKlang.NET4">
+      <HintPath>..\..\..\Projects\moblife\prototype\prototype\dotnet-4\irrKlang.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -56,16 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\BlockMove.wav">
+    <Content Include="Content\Boss_GENERIC.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BlockStop.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\shadow.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\strawberry.png">
+    <Content Include="Content\mrspy1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
