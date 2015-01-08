@@ -8,7 +8,7 @@ namespace Shape
 {
     public partial class Grid
     {
-        class Shape
+        public class Shape
         {
             public Shape()
             {
@@ -37,7 +37,7 @@ namespace Shape
                 public get;
                 private set;
             }
-            protected Vector3 Velocity
+            public Vector3 Velocity
             {
                 public get;
                 private set;

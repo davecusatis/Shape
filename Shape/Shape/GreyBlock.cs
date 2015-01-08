@@ -8,7 +8,7 @@ namespace Shape
 {
     public partial class Grid
     {
-        class GreenBlock : Shape
+        public class GreyBlock : Shape
         {
             public List<Vector2> OccupiedSquares()
             {
@@ -25,10 +25,7 @@ namespace Shape
                 }
                 return ret;
             }
-            public List<Vector2> NextSquares()
-            {
-                return default(List<Vector2>);
-            }
+            
             public void Draw()
             {
                 //

@@ -16,10 +16,18 @@ namespace Shape
     /// </summary>
     public class Game1 : Game
     {
+        public static float BLOCK_SPEED = 5.0f;
+        public static float PLAYER_FALL_SPEED = 100.0f;
+        public static float PLAYER_SPEED = 5.0f;
+        public static float TIMESTEP = 1.0f / 60.0f;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         VertexBuffer vertexBuffer;
         BasicEffect basicEffect;
+        Player guy;
+        Grid map;
+        bool isDying;
 
         Matrix World;
         Matrix View;
@@ -57,7 +65,7 @@ namespace Shape
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            isDying = false;
             base.Initialize();
         }
 
@@ -99,11 +107,59 @@ namespace Shape
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Grid.Shape groundingShape;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            groundingShape = null;
+            if (map.IsGrounded(guy.Position, ref groundingShape) || isDying)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                {
+                    groundingShape.Move(BLOCK_SPEED);
+                }
+                else if(Keyboard.GetState().IsKeyDown(Keys.Down))
+                {
+                    groundingShape.Move(-BLOCK_SPEED);
+                }
+                guy.FloorVelocity = groundingShape.Velocity;
+                guy.Velocity = new Vector3(0, 0, 0);
+
+
+                if (Keyboard.GetState().IsKeyDown(Keys.W))
+                {
+                    guy.Velocity += new Vector3(0, 0, PLAYER_SPEED);
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.S))
+                {
+                    guy.Velocity += new Vector3(0, 0, -PLAYER_SPEED);
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                {
+                    guy.Velocity += new Vector3(PLAYER_SPEED, 0, 0);
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                    guy.Velocity += new Vector3(-PLAYER_SPEED, 0, 0);
+                }
+
+
+
+            }
+            else
+            {
+                isDying = true;
+                guy.FloorVelocity = new Vector3(0, 0, 0);
+                guy.Velocity.X = 0;
+                guy.Velocity.Z = 0;
+                guy.Acceleration = new Vector3(0, -PLAYER_FALL_SPEED, 0);
+             
+            }
+            
             // TODO: Add your update logic here
 
+            map.Update(TIMESTEP);
+            guy.Update(TIMESTEP);
             base.Update(gameTime);
         }
 
