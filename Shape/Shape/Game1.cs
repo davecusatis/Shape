@@ -71,6 +71,7 @@ namespace Shape
             guy = new Player();
             map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
+            context.SetCamera(World, View, Projection);
             base.Initialize();
         }
 
@@ -84,16 +85,7 @@ namespace Shape
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            basicEffect = new BasicEffect(GraphicsDevice);
-
-            VertexPositionColor[] vertices = new VertexPositionColor[4];
-            vertices[0] = new VertexPositionColor(new Vector3(-1, -1, 0), Color.Green);
-            vertices[1] = new VertexPositionColor(new Vector3(-1, 1, 0), Color.Green);
-            vertices[2] = new VertexPositionColor(new Vector3(1, -1, 0), Color.Green);
-            vertices[3] = new VertexPositionColor(new Vector3(1, 1, 0), Color.Green);
-
-            vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), 4, BufferUsage.WriteOnly);
-            vertexBuffer.SetData<VertexPositionColor>(vertices);
+            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,0), new Vector3(1,1,1)));
         }
 
         /// <summary>
