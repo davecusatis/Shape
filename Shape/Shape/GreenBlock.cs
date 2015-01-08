@@ -10,15 +10,16 @@ namespace Shape
     {
         public class GreenBlock : Shape
         {
-            private static Color COLOR_TOP = Color.Green;
-            private static Color COLOR_FRONT = Color.Red;
-            private static Color COLOR_LEFT = Color.Blue
-            private static Color COLOR_RIGHT = new Color(0, 255, 0);
+            private static Color COLOR_TOP = new Color(64, 200, 100);
+            private static Color COLOR_FRONT = new Color(48, 150, 75);
+            private static Color COLOR_LEFT = new Color(32, 100, 50);
+            private static Color COLOR_RIGHT = new Color(32, 100, 50);
 
             public GreenBlock(Vector3 pos, Vector3 sz)
             {
                 Position = pos;
                 Size = sz;
+                Size.Y = 1000.0f;
             }
 
             public override List<Vector2> OccupiedSquares()
@@ -67,26 +68,26 @@ namespace Shape
 
                 points.Add(new VertexPositionColor(Position, COLOR_FRONT));
                 points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y, Position.Z), COLOR_FRONT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y + Size.Y, Position.Z), COLOR_FRONT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y - Size.Y, Position.Z), COLOR_FRONT));
 
                 points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y, Position.Z), COLOR_FRONT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y + Size.Y, Position.Z), COLOR_FRONT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y + Size.Y, Position.Z), COLOR_FRONT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y - Size.Y, Position.Z), COLOR_FRONT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y - Size.Y, Position.Z), COLOR_FRONT));
 
                 points.Add(new VertexPositionColor(Position, COLOR_LEFT));
                 points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y, Position.Z + Size.Z), COLOR_LEFT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y + Size.Y, Position.Z), COLOR_LEFT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y - Size.Y, Position.Z), COLOR_LEFT));
 
-                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y + Size.Y, Position.Z), COLOR_LEFT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y - Size.Y, Position.Z), COLOR_LEFT));
                 points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y, Position.Z + Size.Z), COLOR_LEFT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y + Size.Y, Position.Z + Size.Z), COLOR_LEFT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X, Position.Y - Size.Y, Position.Z + Size.Z), COLOR_LEFT));
 
                 points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y, Position.Z), COLOR_RIGHT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y + Size.Y, Position.Z), COLOR_RIGHT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y - Size.Y, Position.Z), COLOR_RIGHT));
                 points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y, Position.Z + Size.Z), COLOR_RIGHT));
 
-                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y + Size.Y, Position.Z), COLOR_RIGHT));
-                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y + Size.Y, Position.Z + Size.Z), COLOR_RIGHT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y - Size.Y, Position.Z), COLOR_RIGHT));
+                points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y - Size.Y, Position.Z + Size.Z), COLOR_RIGHT));
                 points.Add(new VertexPositionColor(new Vector3(Position.X + Size.X, Position.Y, Position.Z + Size.Z), COLOR_RIGHT));
 
                 context.AddPoints(points);

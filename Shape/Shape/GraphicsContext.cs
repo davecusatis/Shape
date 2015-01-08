@@ -29,6 +29,7 @@ namespace Shape
             basicEffect = new BasicEffect(Device);
             rasterizerState = new RasterizerState();
             Vertices = new List<List<VertexPositionColor>>();
+            basicEffect.VertexColorEnabled = true;
         }
 
         public void SetCamera(Matrix world, Matrix view, Matrix projection)
@@ -36,6 +37,9 @@ namespace Shape
             World = world;
             View = view;
             Projection = projection;
+            basicEffect.World = World;
+            basicEffect.View = View;
+            basicEffect.Projection = Projection;
         }
 
         public int AddBuffer()
@@ -60,10 +64,9 @@ namespace Shape
 
         public void Draw()
         {
-            basicEffect.World = World;
-            basicEffect.View = View;
-            basicEffect.Projection = Projection;
 
+            
+            
             rasterizerState.CullMode = CullMode.None;
             Device.RasterizerState = rasterizerState;
 

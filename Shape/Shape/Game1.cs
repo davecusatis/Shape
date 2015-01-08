@@ -39,7 +39,7 @@ namespace Shape
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            
 
             // full screen code
             var screen = System.Windows.Forms.Screen.AllScreens[0];
@@ -48,11 +48,12 @@ namespace Shape
             form.Location = new System.Drawing.Point(0, 0);
             graphics.PreferredBackBufferWidth = screen.Bounds.Width;
             graphics.PreferredBackBufferHeight = screen.Bounds.Height;
-            float AspectRatio = screen.Bounds.Width / screen.Bounds.Height;
+            float AspectRatio = (float) screen.Bounds.Width / (float) screen.Bounds.Height;
+
 
             // camera code
             World = Matrix.CreateTranslation(0, 0, 0);
-            View = Matrix.CreateLookAt(new Vector3(0, 0, 30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            View = Matrix.CreateLookAt(new Vector3(0, 0, -30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), AspectRatio, 0.01f, 100f);
 
             Content.RootDirectory = "Content";
@@ -82,7 +83,7 @@ namespace Shape
         protected override void LoadContent()
         {
            
-            map.AddShape(new Grid.GreenBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
+            map.AddShape(new Grid.RedBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
         }
 
         /// <summary>
@@ -146,7 +147,8 @@ namespace Shape
                 guy.Acceleration = new Vector3(0, -PLAYER_FALL_SPEED, 0);
              
             }
-            
+
+     
             // TODO: Add your update logic here
 
             map.Update(TIMESTEP);
