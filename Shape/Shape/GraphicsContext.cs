@@ -79,7 +79,7 @@ namespace Shape
                 foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
                 {
                     pass.Apply();
-                    Device.DrawPrimitives(PrimitiveType.TriangleList, 0, Vertices.Count);
+                    Device.DrawPrimitives(PrimitiveType.TriangleList, 0, list.Count / 3);
                 }
             }
             Vertices.Clear();

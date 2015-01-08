@@ -10,10 +10,10 @@ namespace Shape
     {
         public class GreenBlock : Shape
         {
-            private static Color COLOR_TOP = new Color(0, 1, 0);
-            private static Color COLOR_FRONT = new Color(0, 1, 0);
-            private static Color COLOR_LEFT = new Color(0, 1, 0);
-            private static Color COLOR_RIGHT = new Color(0, 1, 0);
+            private static Color COLOR_TOP = new Color(0, 255, 0);
+            private static Color COLOR_FRONT = new Color(0, 255, 0);
+            private static Color COLOR_LEFT = new Color(0, 255, 0);
+            private static Color COLOR_RIGHT = new Color(0, 255, 0);
 
             public GreenBlock(Vector3 pos, Vector3 sz)
             {
@@ -29,7 +29,7 @@ namespace Shape
                 ret = new List<Vector2>();
                 for (x = (int)Position.X; x <= (int)(Position.X + Size.X); x++)
                 {
-                    for (z = (int)Position.Z; x <= (int)(Position.Z + Size.Z); z++)
+                    for (z = (int)Position.Z; z <= (int)(Position.Z + Size.Z); z++)
                     {
                         ret.Add(new Vector2(x, z));
                     }
