@@ -17,8 +17,8 @@ namespace Shape
                 Acceleration = new Vector3(0, 0, 0);
                 ShapeState = State.Stopped;
             }
-            protected static const float VELOCITY_DAMP = 0.95f;
-            protected static const float MIN_VELOCITY = 0.0001f;
+            protected static float VELOCITY_DAMP = 0.95f;
+            protected static float MIN_VELOCITY = 0.0001f;
             public enum State
             {
                 Moving, Stopped
@@ -30,7 +30,7 @@ namespace Shape
                     Position = value;
                     Stop();
                 }
-                public get;
+                protected get;
             }
             public Vector3 Size
             {
@@ -52,7 +52,7 @@ namespace Shape
             public List<Vector2> OccupiedSquares();
             public void Move(float speed) { }
             public void Update(float t) { }
-            public void Draw();
+            public void Draw(GraphicsContext context);
             public bool OccupiesSquare(Vector2 checkSquare)
             {
                 List<Vector2> curSquares;
