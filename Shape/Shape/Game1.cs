@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+using IrrKlang;
 #endregion
 
 namespace Shape
@@ -28,12 +30,10 @@ namespace Shape
         Player guy;
         Grid map;
         bool isDying;
-        SoundEffect BlockMoveSound;
-        SoundEffectInstance BlockMoveInstance;
-        SoundEffect BlockStopSound;
-        SoundEffectInstance BlockStopInstance;
-        SoundEffect Footsteps;
-        SoundEffectInstance FootstepsInstance;
+        string BlockMove;
+        string BlockStop;
+        string Footsteps;
+        ISoundEngine SoundEngine;
         Matrix World;
         Matrix View;
         Matrix Projection;
@@ -77,6 +77,7 @@ namespace Shape
             map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
             context.SetCamera(World, View, Projection);
+            SoundEngine = new ISoundEngine();
             base.Initialize();
         }
 
@@ -88,15 +89,11 @@ namespace Shape
         {
            // todo: load levels
            
-            BlockMoveSound = Content.Load<SoundEffect>("movesound");
-            BlockStopSound = Content.Load<SoundEffect>("stopsound");
-            Footsteps = Content.Load<SoundEffect>("footsteps");
+            map.AddShape(new Grid.GreenBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 50)));
 
-            BlockMoveInstance = BlockMoveSound.CreateInstance();
-            BlockStopInstance = BlockStopSound.CreateInstance();
-            FootstepsInstance = Footsteps.CreateInstance();
-
-            map.AddShape(new Grid.RedBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
+            BlockMove = Content.RootDirectory + "\\blockmove.wav";
+            BlockStop = Content.RootDirectory + "\\blockstop.wav";
+            Footsteps = Content.RootDirectory + "\\footsteps.wav";
         }
 
         /// <summary>
@@ -129,6 +126,11 @@ namespace Shape
                 else if(Keyboard.GetState().IsKeyDown(Keys.Down))
                 {
                     groundingShape.Move(-BLOCK_SPEED);
+                }
+
+                if(groundingShape.Velocity != Vector3.Zero)
+                {
+                    SoundEngine.Play2D(BlockMove, false);
                 }
                 guy.FloorVelocity = groundingShape.Velocity;
                 guy.Velocity = new Vector3(0, 0, 0);
@@ -163,7 +165,7 @@ namespace Shape
 
             if(guy.Velocity != Vector3.Zero)
             {
-                FootstepsInstance.Play();
+                SoundEngine.Play2D(Footsteps, false);
             }
             // TODO: Add your update logic here
 
@@ -181,23 +183,6 @@ namespace Shape
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-
-            //basicEffect.World = World;
-            //basicEffect.View = View;
-            //basicEffect.Projection = Projection;
-            //basicEffect.VertexColorEnabled = true;
-
-            //GraphicsDevice.SetVertexBuffer(vertexBuffer);
-
-            //RasterizerState rasterizerState = new RasterizerState();
-            //rasterizerState.CullMode = CullMode.None;
-            //GraphicsDevice.RasterizerState = rasterizerState;
-
-            //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            //{
-            //    pass.Apply();
-            //    GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
-            //}
 
             map.Draw(context);
             context.Draw();

@@ -49,3 +49,5 @@ C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.XInpu
 C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\Zamaster\Source\Repos\Shape\Shape\Shape\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\David\Desktop\Shape\Shape\Shape\bin\Windows\Debug\Content\mrspy1.png
+C:\Users\David\Desktop\Shape\Shape\Shape\bin\Windows\Debug\Content\Boss_GENERIC.wav
+C:\Users\David\Desktop\Shape\Shape\Shape\bin\Windows\Debug\irrKlang.NET4.dll
