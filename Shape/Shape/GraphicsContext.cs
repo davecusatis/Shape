@@ -28,6 +28,7 @@ namespace Shape
             Projection = new Matrix();
             basicEffect = new BasicEffect(Device);
             rasterizerState = new RasterizerState();
+            Vertices = new List<List<VertexPositionColor>>();
         }
 
         public void SetCamera(Matrix world, Matrix view, Matrix projection)

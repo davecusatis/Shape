@@ -15,6 +15,12 @@ namespace Shape
             private static Color COLOR_LEFT = new Color(0, 1, 0);
             private static Color COLOR_RIGHT = new Color(0, 1, 0);
 
+            public GreenBlock(Vector3 pos, Vector3 sz)
+            {
+                Position = pos;
+                Size = sz;
+            }
+
             public override List<Vector2> OccupiedSquares()
             {
                 int x;

@@ -52,7 +52,7 @@ namespace Shape
 
             // camera code
             World = Matrix.CreateTranslation(0, 0, 0);
-            View = Matrix.CreateLookAt(new Vector3(0, 0, 3), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            View = Matrix.CreateLookAt(new Vector3(0, 10, -30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), AspectRatio, 0.01f, 100f);
 
             Content.RootDirectory = "Content";
@@ -71,7 +71,6 @@ namespace Shape
             guy = new Player();
             map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
-            context.SetCamera(World, View, Projection);
             base.Initialize();
         }
 
@@ -81,11 +80,8 @@ namespace Shape
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,0), new Vector3(1,1,1)));
+           
+            map.AddShape(new Grid.GreenBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
         }
 
         /// <summary>
@@ -142,7 +138,7 @@ namespace Shape
             }
             else
             {
-                isDying = true;
+                //isDying = true;
                 guy.FloorVelocity = new Vector3(0, 0, 0);
                 guy.Velocity.X = 0;
                 guy.Velocity.Z = 0;
