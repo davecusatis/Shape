@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
 #endregion
 
 namespace Shape
@@ -23,13 +24,15 @@ namespace Shape
 
         GraphicsContext context;
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        VertexBuffer vertexBuffer;
-        BasicEffect basicEffect;
         Player guy;
         Grid map;
         bool isDying;
-
+        SoundEffect BlockMoveSound;
+        SoundEffectInstance BlockMoveInstance;
+        SoundEffect BlockStopSound;
+        SoundEffectInstance BlockStopInstance;
+        SoundEffect Footsteps;
+        SoundEffectInstance FootstepsInstance;
         Matrix World;
         Matrix View;
         Matrix Projection;
@@ -82,7 +85,16 @@ namespace Shape
         /// </summary>
         protected override void LoadContent()
         {
-           
+           // todo: load levels
+
+            BlockMoveSound = Content.Load<SoundEffect>("movesound");
+            BlockStopSound = Content.Load<SoundEffect>("stopsound");
+            Footsteps = Content.Load<SoundEffect>("footsteps");
+
+            BlockMoveInstance = BlockMoveSound.CreateInstance();
+            BlockStopInstance = BlockStopSound.CreateInstance();
+            FootstepsInstance = Footsteps.CreateInstance();
+
             map.AddShape(new Grid.RedBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 2)));
         }
 
@@ -148,7 +160,10 @@ namespace Shape
              
             }
 
-     
+            if(guy.Velocity != Vector3.Zero)
+            {
+                FootstepsInstance.Play();
+            }
             // TODO: Add your update logic here
 
             map.Update(TIMESTEP);
