@@ -8,7 +8,7 @@ namespace Shape
 {
     public partial class Grid
     {
-        class GreenBlock : Shape
+        public class GreenBlock : Shape
         {
             public List<Vector2> OccupiedSquares()
             {

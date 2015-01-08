@@ -68,7 +68,7 @@ namespace Shape
         }
         public void AddShape(Shape s)
         {
-
+            Shapes.Add(s);
         }
         public void Clear()
         {
@@ -76,7 +76,10 @@ namespace Shape
         }
         public void Draw()
         {
-
+            foreach (var shapeBlock in Shapes)
+            {
+                shapeBlock.Draw();
+            }
         }
     }
 }
