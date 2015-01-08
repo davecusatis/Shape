@@ -24,6 +24,7 @@ namespace Shape
 
         GraphicsContext context;
         GraphicsDeviceManager graphics;
+    
         Player guy;
         Grid map;
         bool isDying;
@@ -56,7 +57,7 @@ namespace Shape
 
             // camera code
             World = Matrix.CreateTranslation(0, 0, 0);
-            View = Matrix.CreateLookAt(new Vector3(0, 0, -30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            View = Matrix.CreateLookAt(new Vector3(0, 20, -30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), AspectRatio, 0.01f, 100f);
 
             Content.RootDirectory = "Content";
@@ -86,7 +87,7 @@ namespace Shape
         protected override void LoadContent()
         {
            // todo: load levels
-
+           
             BlockMoveSound = Content.Load<SoundEffect>("movesound");
             BlockStopSound = Content.Load<SoundEffect>("stopsound");
             Footsteps = Content.Load<SoundEffect>("footsteps");
