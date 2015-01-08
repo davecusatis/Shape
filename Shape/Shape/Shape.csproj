@@ -36,8 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GreenBlock.cs" />
+    <Compile Include="GreyBlock.cs" />
+    <Compile Include="Grid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedBlock.cs" />
     <Compile Include="Shape.cs" />
   </ItemGroup>
   <ItemGroup>
