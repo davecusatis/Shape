@@ -117,23 +117,24 @@ namespace Shape
 
             // TODO: Add your drawing code here
 
-            basicEffect.World = World;
-            basicEffect.View = View;
-            basicEffect.Projection = Projection;
-            basicEffect.VertexColorEnabled = true;
+            //basicEffect.World = World;
+            //basicEffect.View = View;
+            //basicEffect.Projection = Projection;
+            //basicEffect.VertexColorEnabled = true;
 
-            GraphicsDevice.SetVertexBuffer(vertexBuffer);
+            //GraphicsDevice.SetVertexBuffer(vertexBuffer);
 
-            RasterizerState rasterizerState = new RasterizerState();
-            rasterizerState.CullMode = CullMode.None;
-            GraphicsDevice.RasterizerState = rasterizerState;
+            //RasterizerState rasterizerState = new RasterizerState();
+            //rasterizerState.CullMode = CullMode.None;
+            //GraphicsDevice.RasterizerState = rasterizerState;
 
-            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
-                GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
-            }
+            //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            //{
+            //    pass.Apply();
+            //    GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
+            //}
 
+            
             base.Draw(gameTime);
         }
     }
