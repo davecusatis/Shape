@@ -17,8 +17,8 @@ namespace Shape
                 Acceleration = new Vector3(0, 0, 0);
                 ShapeState = State.Stopped;
             }
-            protected static float VELOCITY_DAMP = 0.95f;
-            protected static float MIN_VELOCITY = 0.0001f;
+            protected static const float VELOCITY_DAMP = 0.95f;
+            protected static const float MIN_VELOCITY = 0.0001f;
             public enum State
             {
                 Moving, Stopped
@@ -35,12 +35,12 @@ namespace Shape
             public Vector3 Size
             {
                 public get;
-                private set;
+                protected set;
             }
             public Vector3 Velocity
             {
                 public get;
-                private set;
+                protected set;
             }
             protected Vector3 Acceleration;
             public State ShapeState

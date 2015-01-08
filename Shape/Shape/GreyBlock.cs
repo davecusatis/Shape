@@ -10,6 +10,11 @@ namespace Shape
     {
         public class GreyBlock : Shape
         {
+            private const Color COLOR_TOP = new Color(1, 1, 1);
+            private const Color COLOR_LEFT = new Color(0.5f, 0.5f, 0.5f);
+            private const Color COLOR_RIGHT = new Color(0.5f, 0.5f, 0.5f);
+            private const Color COLOR_FRONT = new Color(0.75f, 0.75f, 0.75f);
+
             public List<Vector2> OccupiedSquares()
             {
                 int x;

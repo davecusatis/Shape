@@ -10,6 +10,11 @@ namespace Shape
     {
         public class RedBlock : Shape
         {
+            private static Color COLOR_TOP = new Color(1, 0, 0);
+            private static Color COLOR_LEFT = new Color(0.5f, 0, 0);
+            private static Color COLOR_RIGHT = new Color(0.5f, 0, 0);
+            private static Color COLOR_FRONT = new Color(0.75f, 0, 0);
+
             public List<Vector2> OccupiedSquares()
             {
                 int x;
