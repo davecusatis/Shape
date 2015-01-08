@@ -128,10 +128,10 @@ namespace Shape
                     groundingShape.Move(-BLOCK_SPEED);
                 }
 
-                if(groundingShape.Velocity != Vector3.Zero)
-                {
-                    SoundEngine.Play2D(BlockMove, false);
-                }
+                //if(groundingShape.Velocity != Vector3.Zero)
+                //{
+                //    SoundEngine.Play2D(BlockMove, false);
+                //}
                 guy.FloorVelocity = groundingShape.Velocity;
                 guy.Velocity = new Vector3(0, 0, 0);
 
