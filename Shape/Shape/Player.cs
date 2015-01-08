@@ -8,7 +8,7 @@ namespace Shape
 {
     class Player
     {
-        public void Player()
+        public Player()
         {
             Position = new Vector3(0, 0, 0);
             Velocity = new Vector3(0, 0, 0);

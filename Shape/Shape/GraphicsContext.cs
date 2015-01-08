@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Shape
 {
-    class GraphicsContext
+    public class GraphicsContext
     {
 
         public Matrix World;
@@ -78,7 +78,7 @@ namespace Shape
                 foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
                 {
                     pass.Apply();
-                    Device.DrawPrimitives(PrimitiveType.TriangleStrip, 0, Vertices.Count);
+                    Device.DrawPrimitives(PrimitiveType.TriangleList, 0, Vertices.Count);
                 }
             }
             Vertices.Clear();

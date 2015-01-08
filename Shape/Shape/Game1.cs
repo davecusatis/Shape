@@ -21,6 +21,7 @@ namespace Shape
         public static float PLAYER_SPEED = 5.0f;
         public static float TIMESTEP = 1.0f / 60.0f;
 
+        GraphicsContext context;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         VertexBuffer vertexBuffer;
@@ -40,6 +41,7 @@ namespace Shape
             Content.RootDirectory = "Content";
 
 
+            // full screen code
             var screen = System.Windows.Forms.Screen.AllScreens[0];
             Window.IsBorderless = true;
             System.Windows.Forms.Form form = (System.Windows.Forms.Form)System.Windows.Forms.Control.FromHandle(Window.Handle);
@@ -66,6 +68,7 @@ namespace Shape
         {
             // TODO: Add your initialization logic here
             isDying = false;
+            context = new GraphicsContext(GraphicsDevice);
             base.Initialize();
         }
 
@@ -142,9 +145,6 @@ namespace Shape
                 {
                     guy.Velocity += new Vector3(-PLAYER_SPEED, 0, 0);
                 }
-
-
-
             }
             else
             {
@@ -160,6 +160,7 @@ namespace Shape
 
             map.Update(TIMESTEP);
             guy.Update(TIMESTEP);
+            map.Draw(context);
             base.Update(gameTime);
         }
 
@@ -190,7 +191,7 @@ namespace Shape
             //    GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
             //}
 
-            
+            context.Draw();
             base.Draw(gameTime);
         }
     }

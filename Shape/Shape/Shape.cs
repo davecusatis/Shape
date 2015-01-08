@@ -30,17 +30,17 @@ namespace Shape
                     Position = value;
                     Stop();
                 }
-                public get;
+                protected get;
             }
             public Vector3 Size
             {
                 public get;
-                private set;
+                protected set;
             }
             public Vector3 Velocity
             {
                 public get;
-                private set;
+                protected set;
             }
             protected Vector3 Acceleration;
             public State ShapeState
@@ -52,7 +52,7 @@ namespace Shape
             public List<Vector2> OccupiedSquares();
             public void Move(float speed) { }
             public void Update(float t) { }
-            public void Draw();
+            public void Draw(GraphicsContext context);
             public bool OccupiesSquare(Vector2 checkSquare)
             {
                 List<Vector2> curSquares;

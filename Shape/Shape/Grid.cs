@@ -74,11 +74,12 @@ namespace Shape
         {
             Shapes.Clear();
         }
-        public void Draw()
+        public void Draw(GraphicsContext context)
         {
+            
             foreach (var shapeBlock in Shapes)
             {
-                shapeBlock.Draw();
+                shapeBlock.Draw(context);
             }
         }
     }
