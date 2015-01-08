@@ -32,7 +32,7 @@ namespace Shape
                 }
                 public get;
             }
-            protected Vector3 Size
+            public Vector3 Size
             {
                 public get;
                 private set;
@@ -46,7 +46,7 @@ namespace Shape
             public State ShapeState
             {
                 public get;
-                private set;
+                protected set;
             }
 
             public List<Vector2> OccupiedSquares();

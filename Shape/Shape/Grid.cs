@@ -51,12 +51,29 @@ namespace Shape
                 }
             }
         }
-        public bool isGrounded(Vector3 pos, ref Shape groundingShape)
+        public bool IsGrounded(Vector3 pos, ref Shape groundingShape)
         {
-
+            foreach (var compareShape in Shapes)
+            {
+                if((pos.X >= compareShape.Position.X) && 
+                   (pos.Z >= compareShape.Position.Z) &&
+                   (pos.X < (compareShape.Position.X + compareShape.Size.X)) &&
+                   (pos.Z < (compareShape.Position.Z + compareShape.Size.Z)))
+                {
+                    groundingShape = compareShape;
+                    return true;
+                }
+            }
             return false;
         }
+        public void AddShape(Shape s)
+        {
 
+        }
+        public void Clear()
+        {
+            Shapes.Clear();
+        }
         public void Draw()
         {
 
