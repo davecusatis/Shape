@@ -10,17 +10,20 @@ namespace Shape
     {
         class Shape
         {
+            public Shape()
+            {
+                Position = new Vector3(0, 0, 0);
+                Velocity = new Vector3(0, 0, 0);
+                Acceleration = new Vector3(0, 0, 0);
+                ShapeState = State.Stopped;
+            }
             protected static float VELOCITY_DAMP = 0.95f;
+            protected static float MIN_VELOCITY = 0.0001f;
             public enum State
             {
                 Moving, Stopped
             }
-            public enum Direction
-            {
-                Positive, Negative
-            }
-
-            protected Vector3 Position
+            public Vector3 Position
             {
                 public set
                 { 
@@ -29,18 +32,24 @@ namespace Shape
                 }
                 public get;
             }
-            protected Vector3 Size;
+            protected Vector3 Size
+            {
+                public get;
+                private set;
+            }
             protected Vector3 Velocity
             {
                 public get;
                 private set;
             }
             protected Vector3 Acceleration;
-            protected State ShapeState;
-            protected Direction ShapeDirection;
+            public State ShapeState
+            {
+                public get;
+                private set;
+            }
 
             public List<Vector2> OccupiedSquares();
-            public List<Vector2> NextSquares();
             public void Move(float speed) { }
             public void Update(float t) { }
             public void Draw();
@@ -58,6 +67,7 @@ namespace Shape
             {
                 Velocity = new Vector3(0, 0, 0);
                 Acceleration = new Vector3(0, 0, 0);
+                ShapeState = State.Stopped;
             }
 
         }
