@@ -19,14 +19,16 @@ namespace Shape
     /// </summary>
     public class Game1 : Game
     {
-        public static float BLOCK_SPEED = 5.0f;
+        public static float BLOCK_SPEED = 50.0f;
         public static float PLAYER_FALL_SPEED = 100.0f;
         public static float PLAYER_SPEED = 5.0f;
         public static float TIMESTEP = 1.0f / 60.0f;
+        public static float PLAYER_SCALE = 0.005f;
+        public static Vector3 CAMERA_OFFSET = new Vector3(0, 20, -30);
 
         GraphicsContext context;
         GraphicsDeviceManager graphics;
-    
+        Vector3 camera;
         Player guy;
         Grid map;
         bool isDying;
@@ -55,9 +57,11 @@ namespace Shape
             float AspectRatio = (float) screen.Bounds.Width / (float) screen.Bounds.Height;
 
 
+
             // camera code
             World = Matrix.CreateTranslation(0, 0, 0);
-            View = Matrix.CreateLookAt(new Vector3(0, 20, -30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            camera = new Vector3(0, 0, 0);
+            View = Matrix.CreateLookAt(camera, new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), AspectRatio, 0.01f, 100f);
 
             Content.RootDirectory = "Content";
@@ -76,7 +80,6 @@ namespace Shape
             guy = new Player();
             map = new Grid();
             context = new GraphicsContext(GraphicsDevice);
-            context.SetCamera(World, View, Projection);
             SoundEngine = new ISoundEngine();
             base.Initialize();
         }
@@ -87,12 +90,12 @@ namespace Shape
         /// </summary>
         protected override void LoadContent()
         {
-           // todo: load levels
-           
+            guy.image = Content.Load<Texture2D>("strawberry");
+            guy.shadow = Content.Load<Texture2D>("shadow");
             map.AddShape(new Grid.GreenBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 50)));
 
-            BlockMove = Content.RootDirectory + "\\blockmove.wav";
-            BlockStop = Content.RootDirectory + "\\blockstop.wav";
+            BlockMove = Content.RootDirectory + "\\BlockMove.wav";
+            BlockStop = Content.RootDirectory + "\\BlockStop.wav";
             Footsteps = Content.RootDirectory + "\\footsteps.wav";
         }
 
@@ -117,7 +120,7 @@ namespace Shape
                 Exit();
 
             groundingShape = null;
-            if (map.IsGrounded(guy.Position, ref groundingShape) || isDying)
+            if (map.IsGrounded(guy.Position, ref groundingShape) && !isDying)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
@@ -128,10 +131,11 @@ namespace Shape
                     groundingShape.Move(-BLOCK_SPEED);
                 }
 
-                //if(groundingShape.Velocity != Vector3.Zero)
-                //{
-                //    SoundEngine.Play2D(BlockMove, false);
-                //}
+                if (groundingShape.Velocity != Vector3.Zero)
+                {
+                    SoundEngine.Play2D(BlockMove, false);
+                }
+
                 guy.FloorVelocity = groundingShape.Velocity;
                 guy.Velocity = new Vector3(0, 0, 0);
 
@@ -155,7 +159,7 @@ namespace Shape
             }
             else
             {
-                //isDying = true;
+                isDying = true;
                 guy.FloorVelocity = new Vector3(0, 0, 0);
                 guy.Velocity.X = 0;
                 guy.Velocity.Z = 0;
@@ -167,10 +171,15 @@ namespace Shape
             {
                 SoundEngine.Play2D(Footsteps, false);
             }
-            // TODO: Add your update logic here
 
             map.Update(TIMESTEP);
             guy.Update(TIMESTEP);
+
+            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
+
+            // TODO: Add your update logic here
+
+           
             base.Update(gameTime);
         }
 
@@ -182,7 +191,8 @@ namespace Shape
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+
+            context.AddSprite(guy.image, guy.Position + new Vector3(0, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
 
             map.Draw(context);
             context.Draw();
