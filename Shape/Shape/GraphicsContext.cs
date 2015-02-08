@@ -49,19 +49,20 @@ namespace Shape
             spriteEffect.TextureEnabled = true;
         }
 
-        public void SetCamera(Matrix world, Matrix projection, Vector3 cameraPos, Vector3 view)
+        public void SetCamera(Matrix world, Matrix projection, Vector3 cameraPos, Vector3 view, Vector3 shape)
         {
             World = world;
             View = Matrix.CreateLookAt(cameraPos, view, new Vector3(0, 1, 0));
             viewing = view;
 
             Projection = projection;
-            spriteEffect.World = World;
+            spriteEffect.World = Matrix.CreateTranslation(view);
             spriteEffect.View = View;
             spriteEffect.Projection = Projection;
             camera = cameraPos;
 
-            basicEffect.World = World;
+            //basicEffect.World = Matrix.CreateTranslation(shape);
+            //basicEffect.World = World;
             basicEffect.View = View;
             basicEffect.Projection = Projection;
         }

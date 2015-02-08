@@ -21,7 +21,7 @@ namespace Shape
     {
         public static float BLOCK_SPEED = 50.0f;
         public static float PLAYER_FALL_SPEED = 100.0f;
-        public static float PLAYER_SPEED = 5.0f;
+        public static float PLAYER_SPEED = 10.0f;
         public static float TIMESTEP = 1.0f / 60.0f;
         public static float PLAYER_SCALE = 0.005f;
         public static Vector3 CAMERA_OFFSET = new Vector3(0, 20, -30);
@@ -39,7 +39,7 @@ namespace Shape
         Matrix World;
         Matrix View;
         Matrix Projection;
-
+        
         public Game1()
             : base()
         {
@@ -92,11 +92,11 @@ namespace Shape
         {
             guy.image = Content.Load<Texture2D>("strawberry");
             guy.shadow = Content.Load<Texture2D>("shadow");
-            map.AddShape(new Grid.GreenBlock(new Vector3(-1,0,-1), new Vector3(2, 2, 50)));
+            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 50)));
 
             BlockMove = Content.RootDirectory + "\\BlockMove.wav";
             BlockStop = Content.RootDirectory + "\\BlockStop.wav";
-            Footsteps = Content.RootDirectory + "\\footsteps.wav";
+            //Footsteps = Content.RootDirectory + "\\footsteps.wav";
         }
 
         /// <summary>
@@ -116,14 +116,19 @@ namespace Shape
         protected override void Update(GameTime gameTime)
         {
             Grid.Shape groundingShape;
+            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             groundingShape = null;
+            bool blockMoved = false;
+            bool guyMoved = false;
+
             if (map.IsGrounded(guy.Position, ref groundingShape) && !isDying)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
+                    blockMoved = true;
                     groundingShape.Move(BLOCK_SPEED);
                 }
                 else if(Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -133,15 +138,18 @@ namespace Shape
 
                 if (groundingShape.Velocity != Vector3.Zero)
                 {
-                    SoundEngine.Play2D(BlockMove, false);
+                    if(!SoundEngine.IsCurrentlyPlaying(BlockMove))
+                        SoundEngine.Play2D(BlockMove, false);
                 }
 
-                guy.FloorVelocity = groundingShape.Velocity;
+                
+                guy.FloorVelocity =  groundingShape.Velocity;
                 guy.Velocity = new Vector3(0, 0, 0);
 
 
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
                 {
+                    guyMoved = true;
                     guy.Velocity += new Vector3(0, 0, PLAYER_SPEED);
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.S))
@@ -169,13 +177,22 @@ namespace Shape
 
             if(guy.Velocity != Vector3.Zero)
             {
-                SoundEngine.Play2D(Footsteps, false);
+                SoundEngine.Play2D(BlockMove, false);
             }
 
             map.Update(TIMESTEP);
             guy.Update(TIMESTEP);
-
-            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
+          
+            if(blockMoved)
+            {
+                World = Matrix.CreateTranslation(groundingShape.Position);
+            }
+            if(guyMoved)
+            {
+                World = Matrix.CreateTranslation(guy.Position);
+            }
+            Console.Write("shape pos: " + groundingShape.Position + "\n" + "guy pos: " + guy.Position + "\n");
+            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position, groundingShape.Position + CAMERA_OFFSET);
 
             // TODO: Add your update logic here
 
@@ -192,7 +209,7 @@ namespace Shape
             GraphicsDevice.Clear(Color.Black);
 
 
-            context.AddSprite(guy.image, guy.Position + new Vector3(0, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
+            context.AddSprite(guy.image, guy.Position + new Vector3(1, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
 
             map.Draw(context);
             context.Draw();
