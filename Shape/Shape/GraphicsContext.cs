@@ -47,6 +47,7 @@ namespace Shape
 
             basicEffect.VertexColorEnabled = true;
             spriteEffect.TextureEnabled = true;
+            rasterizerState.CullMode = CullMode.None;
         }
 
         public void SetCamera(Matrix world, Matrix projection, Vector3 cameraPos, Vector3 view, Vector3 shape)
@@ -127,7 +128,6 @@ namespace Shape
         public void Draw()
         {
             int i;
-            rasterizerState.CullMode = CullMode.None;
             Device.RasterizerState = rasterizerState;
             VertexBuffer vb;
 
