@@ -19,7 +19,7 @@ namespace Shape
     /// </summary>
     public class Game1 : Game
     {
-        public static float BLOCK_SPEED = 50.0f;
+        public static float BLOCK_SPEED = 500.0f;
         public static float PLAYER_FALL_SPEED = 100.0f;
         public static float PLAYER_SPEED = 10.0f;
         public static float TIMESTEP = 1.0f / 60.0f;
@@ -123,7 +123,7 @@ namespace Shape
             groundingShape = null;
             bool blockMoved = false;
             bool guyMoved = false;
-
+           
             if (map.IsGrounded(guy.Position, ref groundingShape) && !isDying)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
@@ -133,13 +133,19 @@ namespace Shape
                 }
                 else if(Keyboard.GetState().IsKeyDown(Keys.Down))
                 {
+                    blockMoved = true;
                     groundingShape.Move(-BLOCK_SPEED);
                 }
 
-                if (groundingShape.Velocity != Vector3.Zero)
+                if (groundingShape.Velocity != Vector3.Zero && !SoundEngine.IsCurrentlyPlaying(BlockMove))
                 {
-                    if(!SoundEngine.IsCurrentlyPlaying(BlockMove))
-                        SoundEngine.Play2D(BlockMove, false);
+                     SoundEngine.Play2D(BlockMove, false);
+                }
+                else if (groundingShape.ShapeState == Grid.Shape.State.Moving && groundingShape.Velocity == Vector3.Zero)
+                {
+                    groundingShape.ShapeState = Grid.Shape.State.Stopped;
+                    SoundEngine.StopAllSounds();
+                    SoundEngine.Play2D(BlockStop, false);
                 }
 
                 
@@ -175,11 +181,6 @@ namespace Shape
              
             }
 
-            if(guy.Velocity != Vector3.Zero)
-            {
-                SoundEngine.Play2D(BlockMove, false);
-            }
-
             map.Update(TIMESTEP);
             guy.Update(TIMESTEP);
           
@@ -191,7 +192,6 @@ namespace Shape
             {
                 World = Matrix.CreateTranslation(guy.Position);
             }
-            Console.Write("shape pos: " + groundingShape.Position + "\n" + "guy pos: " + guy.Position + "\n");
             context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position, groundingShape.Position + CAMERA_OFFSET);
 
             // TODO: Add your update logic here
