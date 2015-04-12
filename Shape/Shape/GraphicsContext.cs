@@ -90,19 +90,17 @@ namespace Shape
 
             if (frontFacing)
             {
-                pts[0] = new Vector3(pos.X - imgSize.X, pos.Y - imgSize.Y, 0);
-                pts[1] = new Vector3(pos.X + imgSize.X, pos.Y - imgSize.Y, 0);
-                pts[2] = new Vector3(pos.X + imgSize.X, pos.Y + imgSize.Y, 0);
-                pts[3] = new Vector3(pos.X - imgSize.X, pos.Y + imgSize.Y, 0);
+                pts[0] = new Vector3(pos.X - imgSize.X, pos.Y - imgSize.Y, pos.Z);
+                pts[1] = new Vector3(pos.X + imgSize.X, pos.Y - imgSize.Y, pos.Z);
+                pts[2] = new Vector3(pos.X + imgSize.X, pos.Y + imgSize.Y, pos.Z);
+                pts[3] = new Vector3(pos.X - imgSize.X, pos.Y + imgSize.Y, pos.Z);
             }
             else
             {
-
-
-                pts[0] = new Vector3(pos.X - imgSize.X, 0, pos.Y - imgSize.Y);
-                pts[1] = new Vector3(pos.X + imgSize.X, 0, pos.Y - imgSize.Y);
-                pts[2] = new Vector3(pos.X + imgSize.X, 0, pos.Y + imgSize.Y);
-                pts[3] = new Vector3(pos.X - imgSize.X, 0, pos.Y + imgSize.Y);
+                pts[0] = new Vector3(pos.X - imgSize.X, pos.Y, pos.Z - imgSize.Y);
+                pts[1] = new Vector3(pos.X + imgSize.X, pos.Y, pos.Z - imgSize.Y);
+                pts[2] = new Vector3(pos.X + imgSize.X, pos.Y, pos.Z + imgSize.Y);
+                pts[3] = new Vector3(pos.X - imgSize.X, pos.Y, pos.Z + imgSize.Y);
             }
 
 
@@ -130,7 +128,7 @@ namespace Shape
             int i;
             Device.RasterizerState = rasterizerState;
             VertexBuffer vb;
-            /*
+            
             foreach (var list in Vertices)
             {
                         
@@ -145,7 +143,7 @@ namespace Shape
                     Device.DrawPrimitives(PrimitiveType.TriangleList, 0, list.Count / 3);
                 }
             }
-            */
+            
             for (i = 0; i < Textures.Count; i++)
             {
                 spriteEffect.Texture = Textures[i];

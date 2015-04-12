@@ -82,8 +82,6 @@ namespace Shape
             context = new GraphicsContext(GraphicsDevice);
             SoundEngine = new ISoundEngine();
             base.Initialize();
-            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
-
         }
 
         /// <summary>
@@ -201,8 +199,9 @@ namespace Shape
 
 
             context.AddSprite(guy.image, guy.Position + new Vector3(1, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
+            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
 
-            //map.Draw(context);
+            map.Draw(context);
             context.Draw();
             base.Draw(gameTime);
         }
