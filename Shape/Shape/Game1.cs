@@ -121,19 +121,15 @@ namespace Shape
                 Exit();
 
             groundingShape = null;
-            bool blockMoved = false;
-            bool guyMoved = false;
            
             if (map.IsGrounded(guy.Position, ref groundingShape) && !isDying)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
-                    blockMoved = true;
                     groundingShape.Move(BLOCK_SPEED);
                 }
                 else if(Keyboard.GetState().IsKeyDown(Keys.Down))
                 {
-                    blockMoved = true;
                     groundingShape.Move(-BLOCK_SPEED);
                 }
 
@@ -144,13 +140,9 @@ namespace Shape
                 else if (groundingShape.ShapeState == Grid.Shape.State.Moving && groundingShape.Velocity == Vector3.Zero)
                 {
                     groundingShape.ShapeState = Grid.Shape.State.Stopped;
-                    SoundEngine.StopAllSounds();
-                    SoundEngine.Play2D(BlockStop, false);
+                    //SoundEngine.StopAllSounds();
+                    //SoundEngine.Play2D(BlockStop, false);
                 }
-
-                
-                guy.FloorVelocity =  groundingShape.Velocity;
-                guy.Velocity = new Vector3(0, 0, 0);
 
 
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -181,6 +173,12 @@ namespace Shape
             }
 
             map.Update(TIMESTEP);
+
+            if (groundingShape != null)
+            {
+                guy.FloorVelocity = groundingShape.Velocity;
+            }
+
             guy.Update(TIMESTEP);
 
             // TODO: Add your update logic here
