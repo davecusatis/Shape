@@ -21,7 +21,7 @@ namespace Shape
     {
         public static float BLOCK_SPEED = 500.0f;
         public static float PLAYER_FALL_SPEED = 100.0f;
-        public static float PLAYER_SPEED = 10.0f;
+        public static float PLAYER_SPEED = 5.0f;
         public static float TIMESTEP = 1.0f / 60.0f;
         public static float PLAYER_SCALE = 0.005f;
         public static Vector3 CAMERA_OFFSET = new Vector3(0, 20, -30);
@@ -82,6 +82,8 @@ namespace Shape
             context = new GraphicsContext(GraphicsDevice);
             SoundEngine = new ISoundEngine();
             base.Initialize();
+            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
+
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace Shape
         {
             guy.image = Content.Load<Texture2D>("strawberry");
             guy.shadow = Content.Load<Texture2D>("shadow");
-            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 50)));
+            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 2)));
 
             BlockMove = Content.RootDirectory + "\\BlockMove.wav";
             BlockStop = Content.RootDirectory + "\\BlockStop.wav";
@@ -155,7 +157,6 @@ namespace Shape
 
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
                 {
-                    guyMoved = true;
                     guy.Velocity += new Vector3(0, 0, PLAYER_SPEED);
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.S))
@@ -183,16 +184,6 @@ namespace Shape
 
             map.Update(TIMESTEP);
             guy.Update(TIMESTEP);
-          
-            if(blockMoved)
-            {
-                World = Matrix.CreateTranslation(groundingShape.Position);
-            }
-            if(guyMoved)
-            {
-                World = Matrix.CreateTranslation(guy.Position);
-            }
-            context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position, groundingShape.Position + CAMERA_OFFSET);
 
             // TODO: Add your update logic here
 
@@ -211,7 +202,7 @@ namespace Shape
 
             context.AddSprite(guy.image, guy.Position + new Vector3(1, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
 
-            map.Draw(context);
+            //map.Draw(context);
             context.Draw();
             base.Draw(gameTime);
         }

@@ -50,20 +50,20 @@ namespace Shape
             rasterizerState.CullMode = CullMode.None;
         }
 
-        public void SetCamera(Matrix world, Matrix projection, Vector3 cameraPos, Vector3 view, Vector3 shape)
+        public void SetCamera(Matrix world, Matrix projection, Vector3 cameraPos, Vector3 view)
         {
             World = world;
             View = Matrix.CreateLookAt(cameraPos, view, new Vector3(0, 1, 0));
             viewing = view;
 
             Projection = projection;
-            spriteEffect.World = Matrix.CreateTranslation(view);
+            spriteEffect.World = Matrix.Identity;//Matrix.CreateTranslation(view);
             spriteEffect.View = View;
             spriteEffect.Projection = Projection;
             camera = cameraPos;
 
             //basicEffect.World = Matrix.CreateTranslation(shape);
-            //basicEffect.World = World;
+            basicEffect.World = Matrix.Identity;
             basicEffect.View = View;
             basicEffect.Projection = Projection;
         }
@@ -90,7 +90,7 @@ namespace Shape
 
             if (frontFacing)
             {
-                pts[0] = new Vector3(pos.X - imgSize.X, pos.Y -imgSize.Y, 0);
+                pts[0] = new Vector3(pos.X - imgSize.X, pos.Y - imgSize.Y, 0);
                 pts[1] = new Vector3(pos.X + imgSize.X, pos.Y - imgSize.Y, 0);
                 pts[2] = new Vector3(pos.X + imgSize.X, pos.Y + imgSize.Y, 0);
                 pts[3] = new Vector3(pos.X - imgSize.X, pos.Y + imgSize.Y, 0);
@@ -130,7 +130,7 @@ namespace Shape
             int i;
             Device.RasterizerState = rasterizerState;
             VertexBuffer vb;
-
+            /*
             foreach (var list in Vertices)
             {
                         
@@ -145,7 +145,7 @@ namespace Shape
                     Device.DrawPrimitives(PrimitiveType.TriangleList, 0, list.Count / 3);
                 }
             }
-
+            */
             for (i = 0; i < Textures.Count; i++)
             {
                 spriteEffect.Texture = Textures[i];
