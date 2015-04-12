@@ -176,7 +176,7 @@ namespace Shape
 
             if (groundingShape != null)
             {
-                guy.FloorVelocity = groundingShape.Velocity;
+                guy.FloorVelocity = groundingShape.UpdateVelocity;
             }
 
             guy.Update(TIMESTEP);

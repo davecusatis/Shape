@@ -42,6 +42,7 @@ namespace Shape
                 Velocity += Acceleration * t;
                 Position += Velocity * t;
                 Acceleration = new Vector3(0, 0, 0);
+                UpdateVelocity = Velocity;
                 Velocity *= VELOCITY_DAMP;
                 if (Velocity.Length() < MIN_VELOCITY)
                 {

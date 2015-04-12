@@ -26,6 +26,7 @@ namespace Shape
             public Vector3 Position;
             public Vector3 Size;
             public Vector3 Velocity;
+            public Vector3 UpdateVelocity;
             protected Vector3 Acceleration;
             public State ShapeState;
             public abstract List<Vector2> OccupiedSquares();

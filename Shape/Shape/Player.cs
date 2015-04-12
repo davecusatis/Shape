@@ -9,6 +9,7 @@ namespace Shape
 {
     class Player
     {
+        protected static float VELOCITY_DAMP = 0.95f;
         public Player()
         {
             Position = new Vector3(1, 1, 0);
@@ -19,6 +20,7 @@ namespace Shape
             Velocity += Acceleration * t;
             Position += (Velocity + FloorVelocity) * t;
             Acceleration = new Vector3(0, 0, 0);
+            Velocity *= VELOCITY_DAMP;
         }
         public void Draw()
         {
