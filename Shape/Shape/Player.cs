@@ -11,7 +11,7 @@ namespace Shape
     {
         public Player()
         {
-            Position = new Vector3(0, 0, 0);
+            Position = new Vector3(1, 1, 0);
             Velocity = new Vector3(0, 0, 0);
         }
         public void Update(float t)

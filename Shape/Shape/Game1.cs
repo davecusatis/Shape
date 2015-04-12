@@ -92,7 +92,7 @@ namespace Shape
         {
             guy.image = Content.Load<Texture2D>("strawberry");
             guy.shadow = Content.Load<Texture2D>("shadow");
-            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 2)));
+            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 50)));
 
             BlockMove = Content.RootDirectory + "\\BlockMove.wav";
             BlockStop = Content.RootDirectory + "\\BlockStop.wav";
@@ -196,7 +196,7 @@ namespace Shape
             GraphicsDevice.Clear(Color.Black);
 
 
-            context.AddSprite(guy.image, guy.Position + new Vector3(1, 1, 0), 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
+            context.AddSprite(guy.image, guy.Position, 0.8f * PLAYER_SCALE, 1.0f * PLAYER_SCALE);
             context.SetCamera(World, Projection, guy.Position + CAMERA_OFFSET, guy.Position);
 
             map.Draw(context);
