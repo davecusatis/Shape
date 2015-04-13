@@ -31,6 +31,7 @@ namespace Shape
         Vector3 camera;
         Player guy;
         Grid map;
+        MapImporter mapImporter;
         bool isDying;
         string BlockMove;
         string BlockStop;
@@ -78,7 +79,7 @@ namespace Shape
             // TODO: Add your initialization logic here
             isDying = false;
             guy = new Player();
-            map = new Grid();
+            mapImporter = new MapImporter(Content.RootDirectory + "\\test.txt");
             context = new GraphicsContext(GraphicsDevice);
             SoundEngine = new ISoundEngine();
             base.Initialize();
@@ -92,11 +93,14 @@ namespace Shape
         {
             guy.image = Content.Load<Texture2D>("strawberry");
             guy.shadow = Content.Load<Texture2D>("shadow");
-            map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 50)));
-
+            map = mapImporter.LoadMap();
+            //map.AddShape(new Grid.GreenBlock(new Vector3(0,0,-1), new Vector3(2, 2, 50)));
+            //map.AddShape(new Grid.RedBlock(new Vector3(2, 0, -1), new Vector3(50, 2, 2)));
             BlockMove = Content.RootDirectory + "\\BlockMove.wav";
             BlockStop = Content.RootDirectory + "\\BlockStop.wav";
             //Footsteps = Content.RootDirectory + "\\footsteps.wav";
+
+            
         }
 
         /// <summary>
